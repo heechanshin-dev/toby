@@ -9,7 +9,7 @@ public class UserDaoTest {
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        
+
         UserDao userDao = new DaoFactory().userDao();
         User user = new User();
         user.setId("whiteship");
@@ -20,6 +20,9 @@ public class UserDaoTest {
         User user2 = userDao.get(user.getId());
         System.out.println(user2.getName());
         System.out.println(user2.getPassword());
-        System.out.println(user2.getId() + "조회성공 " );
+        System.out.println(user2.getId() + " : 조회성공 " );
+
+
+        // 주석추가
     }
 }
