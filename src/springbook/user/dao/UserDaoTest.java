@@ -1,14 +1,18 @@
-package springbook.user.service;
+package springbook.user.dao;
 
-import springbook.user.dao.UserDao;
 import springbook.user.domain.User;
 
 import java.sql.SQLException;
 
-public class UserMain {
+public class UserDaoTest {
+
+
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao();
+
+        ConnectionMaker connectionMaker = new DConnectionMaker();
+        
+        UserDao userDao = new UserDao( connectionMaker  );
         User user = new User();
         user.setId("whiteship");
         user.setName("백기선");
@@ -20,5 +24,4 @@ public class UserMain {
         System.out.println(user2.getPassword());
         System.out.println(user2.getId() + "조회성공 " );
     }
-
 }
