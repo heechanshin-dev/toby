@@ -2,14 +2,35 @@ package springbook.user.dao;
 
 import springbook.user.domain.User;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.*;
 
 public class UserDao {
 
+    public static void main(String[] args) throws ClassNotFoundException, SQLException{
+        UserDao userDao = new UserDao();
+        User user = new User();
+        user.setId("whiteship");
+        user.setName("백기선");
+        user.setPassword("married");
+
+        userDao.add(user);
+
+        System.out.println(user.getId() + "등록 성공");
+
+
+        User user2 = userDao.get(user.getId());
+        System.out.println(user2.getName());
+        System.out.println(user2.getPassword());
+
+        System.out.println(user2.getId() + "조회성공 " );
+
+    }
+
 
     public void add(User user) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/dbo");
+        Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/dbo", "root", "12345678");
 
         PreparedStatement ps = c.prepareStatement("insert into users (id, name, password) values (?,?,?)");
         ps.setString(1, user.getId());
@@ -19,11 +40,12 @@ public class UserDao {
         ps.executeUpdate();
 
         ps.close();
+
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/dbo");
+        Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/dbo", "root", "12345678");
 
         PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
